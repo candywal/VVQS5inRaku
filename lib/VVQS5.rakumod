@@ -48,6 +48,21 @@ class StringC does ExprC is export {
     has Str $.s;
 }
 
+our %top-env is export;
+%top-env{'true'} = BoolV.new(value => Bool::True);
+%top-env{'false'} = BoolV.new(value => Bool::False);
+%top-env{'+'} = PrimOpV.new(
+        op => -> NumV $a, NumV $b {
+            NumV.new(value => $a.value + $b.value)
+        }
+        );
+%top-env{'-'} = PrimOpV.new(op => -> NumV $a, NumV $b { NumV.new(value => $a.value - $b.value) });
+%top-env{'*'} = PrimOpV.new(op => -> NumV $a, NumV $b { NumV.new(value => $a.value * $b.value) });
+%top-env{'/'} = PrimOpV.new(op => -> NumV $a, NumV $b { NumV.new(value => $a.value / $b.value) });
+%top-env{'error'} = PrimOpV.new(op => -> StringV $a {die $a.value});
+%top-env{'<='} = PrimOpV.new(op => -> NumV $a, NumV $b { BoolV.new(value => $a.value <= $b.value) });
+%top-env{'equal?'} = PrimOpV.new(op => -> Value $a, Value $b {BoolV.new(b => $a.value == $b.value) });
+
 sub lookup(Str $s, %env) is export { %env{$s} }
 
 our sub interp(ExprC $e, %env) is export {

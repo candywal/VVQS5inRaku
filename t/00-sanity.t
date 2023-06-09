@@ -30,6 +30,7 @@ test-interp(
                  );
 
 # Test the LamC and AppC cases
+# Test the LamC and AppC cases
 test-interp(
         AppC.new(
                 fun => LamC.new(args => ['x'], body => IdC.new(s => 'x')),
@@ -37,6 +38,19 @@ test-interp(
                 ),
         {},
         NumV.new(value => 42)
-                 );
+                     );
+test-interp(IdC.new(s => 'y'), {'x' => NumV.new(value => 42), 'y' => NumV.new(value => 47)}, NumV.new(value => 47));
+
+test-interp(
+        IfC.new(
+                test => IdC.new(s => 'r'),
+                then => NumC.new(n => 42),
+                else => NumC.new(n => 6)
+                ),
+        {'r' => BoolV.new(value => False)},
+        NumV.new(value => 6)
+                     );
+test-interp(IdC.new(s => 'true'), %top-env, BoolV.new(value => Bool::True));
+test-interp(IdC.new(s => 'false'), %top-env, BoolV.new(value => Bool::False));
 
 done-testing;

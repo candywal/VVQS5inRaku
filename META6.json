@@ -1,0 +1,19 @@
+{
+  "name": "VVQS5",
+  "description": "Write me!",
+  "version": "0.1",
+  "perl": "6.*",
+  "authors": [
+    "Write me!"
+  ],
+  "auth": "Write me!",
+  "depends": [],
+  "build-depends": [],
+  "test-depends": [],
+  "provides": {
+    "VVQS5": "lib/VVQS5.rakumod"
+  },
+  "resources": [],
+  "license": "Write me!",
+  "source-url": "Write me!"
+}
